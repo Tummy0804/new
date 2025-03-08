@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你能坚持点几下？</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            color: #333;
+            transition: all 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            width: 80%;
+            max-width: 500px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .button {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .victory-image {
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>你能坚持点几下？</h1>
+        <button class="button" onclick="increaseCount()">不要点</button>
+        <p class="counter">点击次数：<span id="count">0</span></p>
+        <div class="image-container hidden" id="imageContainer">
+            <img src="victory.png" alt="胜利图片" class="victory-image">
+            <p>🎉 恭喜！你是“最执着的点点狂魔”！ 🎉</p>
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+
+        function increaseCount() {
+            count++;
+            document.getElementById("count").innerText = count;
+
+            let message = "";
+            if (count === 1) {
+                message = "你点了一下，还想继续？";
+            } else if (count === 10) {
+                message = "还在点？你是不是很闲？";
+            } else if (count === 25) {
+                message = "第 25 次……你是真的很无聊吧？";
+            } else if (count === 50) {
+                message = "50 次了！你是不是想破纪录？";
+            } else if (count === 75) {
+                message = "你点得比 AI 还勤快……";
+            } else if (count === 100) {
+                message = "🎉 100 次！你赢了！🎉";
+                document.getElementById("imageContainer").classList.remove("hidden");
+            } else if (count > 100) {
+                message = "？？？你还在点？？？";
+            }
+
+            if (message) {
+                alert(message); // 触发弹窗，保证用户能看到
+            }
+        }
+    </script>
+
+</body>
+</html>
