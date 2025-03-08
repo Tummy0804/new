@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>梁思杰的个人简历</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            color: white;
+            transition: all 0.5s ease-in-out;
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            width: 80%;
+            max-width: 500px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .button {
+            background: #f39c12;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background: #f1c40f;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loading-container {
+            width: 80%;
+            max-width: 400px;
+            background: #ddd;
+            height: 30px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            width: 5%;
+            height: 100%;
+            background-color: #e67e22;
+            transition: width 2s ease-in-out;
+        }
+
+        .output {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 20px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .question-box {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 400px;
+            display: none;
+            color: black;
+        }
+
+        .question-box button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .question-box button:hover {
+            background: #f39c12;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 首页 -->
+    <div id="homepage">
+        <div class="container">
+            <h1>欢迎来到梁思杰的个人简历！</h1>
+            <p>想挖掘我的潜力？一个一个来！</p>
+            <button class="button" onclick="showTalentPage()">点击发掘我的潜力</button>
+        </div>
+    </div>
+
+    <!-- 整蛊简历页面 -->
+    <div id="talentPage" class="hidden">
+        <div class="container">
+            <h1>解锁梁思杰的潜力</h1>
+            <p>正在加载简历，请耐心等待...</p>
+
+            <div class="loading-container">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <p id="loading-text">进度：5%</p>
+
+            <div class="output" id="outputText">⚠️ 错误！简历数据丢失！</div>
+
+            <button class="button" onclick="startTest()">职业潜力测试</button>
+            <button class="button" onclick="showChallenge()">挑战答题</button>
+            <button class="button" onclick="goHome()">返回主页</button>
+
+            <div class="question-box" id="questionBox">
+                <h2>Q1. 你最大的职场优势是？</h2>
+                <button onclick="showResult('A')">A. 我会Ctrl+C 和 Ctrl+V</button>
+                <button onclick="showResult('B')">B. 我擅长拖延但最后能搞定</button>
+                <button onclick="showResult('C')">C. 我能在会议上装作听懂了</button>
+            </div>
+
+            <div class="output" id="resultText"></div>
+        </div>
+    </div>
+
+    <script>
+        function showTalentPage() {
+            document.getElementById("homepage").classList.add("hidden");
+            document.getElementById("talentPage").classList.remove("hidden");
+            startLoading();
+        }
+
+        function startLoading() {
+            let progress = 5;
+            function fakeLoading() {
+                if (progress < 95) {
+                    progress += Math.random() * 10;
+                    if (progress > 95) progress = 95;
+                    document.getElementById("progress").style.width = progress + "%";
+                    document.getElementById("loading-text").innerText = "进度：" + Math.floor(progress) + "%";
+                } else {
+                    document.getElementById("outputText").style.display = "block";
+                    document.getElementById("outputText").style.opacity = "1";
+                }
+                setTimeout(fakeLoading, 2000);
+            }
+            fakeLoading();
+        }
+
+        function startTest() {
+            document.getElementById("questionBox").style.display = "block";
+        }
+
+        function showResult(answer) {
+            let result;
+            if (answer === "A") result = "🎭 你适合做摸鱼大师，年薪0元，享受自由！";
+            else if (answer === "B") result = "🖥️ 你适合当拖延症总裁，决策永远延后！";
+            else result = "📢 你是会议PPT王者，大家都以为你很厉害。";
+            
+            document.getElementById("resultText").innerText = result;
+            document.getElementById("resultText").style.display = "block";
+            document.getElementById("resultText").style.opacity = "1";
+        }
+
+        function showChallenge() {
+            alert("挑战模式暂未开发，请先摸鱼！");
+        }
+
+        function goHome() {
+            document.getElementById("talentPage").classList.add("hidden");
+            document.getElementById("homepage").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>
